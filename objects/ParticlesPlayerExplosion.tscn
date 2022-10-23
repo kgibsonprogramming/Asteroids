@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/audio/sfx/ShipExplosion.wav" type="AudioStream" id=1]
+
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0, 0.15, 0.4, 0.8, 1 )
+colors = PoolColorArray( 0.992157, 0.933333, 0.654902, 1, 0.952941, 0.819608, 0.0901961, 1, 0.827451, 0.498039, 0.0313726, 1, 0.984314, 0.392157, 0.0313726, 1, 0.662745, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
+
+[sub_resource type="Curve" id=1]
+min_value = -400.0
+max_value = 400.0
+_data = [ Vector2( 0.00572519, 400 ), 0.0, 0.0, 0, 0, Vector2( 0.211832, 26.9939 ), -2486.05, -2486.05, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=2]
+curve = SubResource( 1 )
+
+[sub_resource type="Curve" id=3]
+max_value = 2.5
+_data = [ Vector2( 0.028626, 2.5 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+emission_shape = 1
+emission_sphere_radius = 2.0
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 100.0
+initial_velocity_random = 0.5
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 100.0
+linear_accel_random = 0.2
+linear_accel_curve = SubResource( 2 )
+scale_curve = SubResource( 4 )
+color_ramp = SubResource( 7 )
+
+[node name="ParticlesPlayerExplosion" type="Particles2D"]
+emitting = false
+amount = 200
+one_shot = true
+explosiveness = 0.5
+process_material = SubResource( 5 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 1 )
+autoplay = true
